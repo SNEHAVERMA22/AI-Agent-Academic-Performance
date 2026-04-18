@@ -1,116 +1,132 @@
 
 
-# AI Agent for Academic Performance Analysis
+#Academic Performance Agent
 
-##  Problem Statement
-Design an AI agent that helps students and faculty understand academic performance by analyzing academic records and attendance data. The system identifies trends, detects weak areas, and generates personalized recommendations.
-
----
-
-##  Architecture Overview
-
-The AI agent consists of the following components:
-
-1. Data Collection Layer  
-2. Data Validation Layer  
-3. Data Processing & Analysis Engine  
-4. Decision Engine  
-5. Insight Generation Module  
-6. Recommendation Engine  
+An intelligent multi-agent system designed to bridge the gap between institutional data and actionable academic insights for both students and faculty.
 
 ---
 
-## System Flow
+##System Architecture
 
-                                              Data Collection 
-                                                   |
-                                            Data Validation 
-                                                   |
-                                              Data Processing
-                                                   |
-                                                 Analysis 
-                                                   |
-                                Decision Node (Check data sufficiency)
-                                                   |
-                                           Insight Generation
-                                                   |
-                                        Recommendation Generation
+It is built using a **Stateful Multi-Agent Orchestration pattern**. Unlike traditional linear systems, it incorporates feedback loops to ensure data integrity before generating insights.
+
+### Architecture Diagram
+![Architecture](./docs/architecture_diagram.png)
 
 ---
 
-## Component Details
+##Core Components
 
-### 1. Data Collection
-- Sources: Academic records, attendance logs, institutional databases
+### 🔹 Orchestration Layer (The Brain)
+- Powered by **LangGraph**
+- Manages conversation state
+- Dynamically decides:
+  - When to fetch data
+  - When to generate insights
 
-### 2. Data Validation
-- Handles missing values
-- Ensures data consistency
+---
 
-### 3. Data Processing & Analysis
-- Trend analysis (performance over time)
-- Weak subject detection
-- Attendance correlation
+### 🔹 Validation Engine
+- Built using **Pydantic** and **Great Expectations**
+- Ensures:
+  - No missing/null values
+  - Data consistency before analysis
 
-### 4. Decision Engine
-- Checks if sufficient historical data exists
-- Selects relevant data sources dynamically
+---
 
-### 5. Insight Generation
-- Identifies patterns like:
-  - Low attendance → low marks
-  - Subject-specific weaknesses
+### 🔹 RAG (Retrieval-Augmented Generation)
+- Uses **ChromaDB** for vector storage
+- Connects to:
+  - Academic Policy Handbook
+- Ensures:
+  - Recommendations align with institutional rules
 
-### 6. Recommendation Engine
+---
+
+### 🔹 Persona-Based Generator
+- Dual prompting system
 - Generates:
-  - Student-specific suggestions
-  - Faculty-level summaries
+  - Student-focused insights (growth-oriented)
+  - Faculty summaries (trend & intervention focused)
+- Ensures compliance with **FERPA/GDPR**
 
 ---
 
-##  Internal Decision Logic
+## Tech Stack & Justification
 
-- If attendance < threshold → flag risk
-- If marks decreasing → detect trend
-- If insufficient data → request more records
-- Prioritize improvements based on severity
-
----
-
-##  Tech Stack & Justification
-
-| Component | Technology | Reason |
-|----------|-----------|--------|
-| Data Processing | Pandas | Efficient data handling |
-| ML Models(Random forest for Trend Detection) | Scikit-learn | Simple & interpretable |
-| NLP | spaCy / BERT | Analyze policy/guidelines |
-| Agent Framework | LangChain | Modular AI pipeline |
-| Visualization | Matplotlib | Insight visualization |
+| Technology | Role | Justification |
+|-----------|------|--------------|
+| LangGraph | Orchestration | Supports cyclic workflows and decision loops |
+| Python (Pandas) | Data Analysis | Efficient for trend and correlation analysis |
+| ChromaDB | Vector Database | Enables semantic policy retrieval (RAG) |
+| FastAPI | Deployment | High-performance async APIs |
 
 ---
 
-## Example Use Case
+## Decision Stages
 
-Student A:
-- Attendance: 60%
-- Marks: Decreasing trend  
+### 1️⃣ Discovery
+- Identifies user type:
+  - Student → personal insights
+  - Faculty → class-level analysis
 
-→ Agent Output:
-- Improve attendance
-- Focus on weak subjects
-- Suggested study plan
+---
+
+### 2️⃣ Verification
+- Checks availability of historical data  
+- If insufficient:
+  - Requests additional data  
+  - Avoids speculative outputs  
+
+---
+
+### 3️⃣ Prioritization
+- Uses weighted logic to detect **Critical Gaps**  
+- Example:  
+  - High grades + low attendance → attendance prioritized  
+
+---
+
+### 4️⃣ Synthesis
+- Generates:
+  - Actionable student recommendations  
+  - Faculty intervention summaries  
+
+---
+
+## 📊 Example Output
+
+###  Student
+- Improve attendance to meet minimum criteria  
+- Focus on weak subjects identified via trend analysis  
+
+### Faculty
+- Identify students at risk  
+- Recommend targeted academic interventions  
+
+---
+
+##  Why This Approach?
+
+- Modular architecture separates:
+  - Data Layer  
+  - Reasoning Layer  
+
+- Ensures scalability:
+  - Database changes (SQL → MongoDB) don’t affect agent logic  
+
+- Enables:
+  - Robust, reusable, and adaptable AI system  
 
 ---
 
 ##  Future Enhancements
 
-- Real-time dashboard
-- LMS integration
-- Predictive performance modeling
-- Personalized learning paths
+- Real-time dashboards  
+- LMS integration  
+- Predictive analytics  
+- Personalized learning pathways  
 
 ---
 
-##  Conclusion
 
-This AI agent provides a structured, intelligent system for academic performance analysis, enabling data-driven decisions for both students and faculty.
