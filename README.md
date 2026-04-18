@@ -82,10 +82,10 @@ The AI agent consists of the following components:
 | Component | Technology | Reason |
 |----------|-----------|--------|
 | Data Processing | Pandas | Efficient data handling |
-| ML Models | Scikit-learn | Simple & interpretable |
+| ML Models(Random forest for Trend Detection) | Scikit-learn | Simple & interpretable |
 | NLP | spaCy / BERT | Analyze policy/guidelines |
 | Agent Framework | LangChain | Modular AI pipeline |
-| Visualization | Matplotlib / Plotly | Insight visualization |
+| Visualization | Matplotlib | Insight visualization |
 
 ---
 
