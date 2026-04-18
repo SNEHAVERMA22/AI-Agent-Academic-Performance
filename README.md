@@ -11,7 +11,7 @@ An intelligent multi-agent system designed to bridge the gap between institution
 It is built using a **Stateful Multi-Agent Orchestration pattern**. Unlike traditional linear systems, it incorporates feedback loops to ensure data integrity before generating insights.
 
 ### Architecture Diagram
-![Architecture](./docs/architecture_diagram.png)
+![Architecture](./architecture_diagram.png)
 
 ---
 
